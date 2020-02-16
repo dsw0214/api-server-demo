@@ -1,0 +1,36 @@
+runmode: release             # 开发模式, debug, release, test
+addr: :8888                  # HTTP绑定端口
+name: api-server-demo              # API Server的名字
+
+# init log config
+log:
+  # writers: 输出位置，有2个可选项：file,stdout。选择file会将日志记录到logger_file指定的日志文件中
+  # 选择stdout会将日志输出到标准输出，当然也可以两者同时选择
+  writers: file,stdout
+  # 日志级别，DEBUG, INFO, WARN, ERROR, FATAL
+  logger_level: DEBUG
+  # 日志存储路径
+  logger_file: logs/video-server-api.log
+  # 日志的输出格式，json或者plaintext，true会输出成json格式，false会输出成非json格式
+  log_format_text: false
+  # rotate依据，可选的有：daily, size。如果选daily则根据天进行转存，如果是size则根据大小进行转存
+  rollingPolicy: size # size, daily
+  #  rotate转存时间，配合rollingPolicy: daily使用
+  log_rotate_date: 1
+  # rotate转存大小，配合rollingPolicy: size使用
+  log_rotate_size: 1
+  # 当日志文件达到转存标准时，log系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数
+  log_backup_count: 7
+
+# init db config
+db:
+  name: api-server-demo
+  addr: 127.0.0.1:3306
+  username: root
+  password: JTCefrljmqlyGvUY
+  # time zone
+  timezone: Local # Asia/Shanghai
+  # 用于设置最大打开的连接数，默认值为0表示不限制.设置最大的连接数，可以避免并发太高导致连接mysql出现too many connections的错误
+  max_db_conntions_num: 10
+  # 用于设置闲置的连接数.设置闲置的连接数则当开启的一个连接使用完成后可以放在池里等候下一次使用。
+  max_idle_conns: 0
